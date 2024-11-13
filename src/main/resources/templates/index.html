@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Alunos</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+
+    <h1>Lista de Alunos</h1>
+    <ul id="aluno-list"></ul>
+
+    <script>
+        $(document).ready(function() {
+            $.get("http://localhost:8081/alunos/", function(data) {
+                // Aqui você pode ver o que está retornando no console
+                console.log(data);
+
+                // Verificando se há alunos na resposta
+                if (data.length > 0) {
+                    data.forEach(function(aluno) {
+                        // Criando a lista de alunos com nome e cpf
+                        $('#aluno-list').append('<li>' + aluno.nome + ' - CPF: ' + aluno.cpf + '</li>');
+                    });
+                } else {
+                    $('#aluno-list').append('<li>Nenhum aluno encontrado.</li>');
+                }
+            }).fail(function() {
+                alert("Erro ao carregar alunos.");
+            });
+        });
+    </script>
+
+</body>
+</html>
+
